@@ -1041,11 +1041,19 @@ async function saveCotizacion(){
     
     if(response.ok){
       console.log('✓ Guardado en Supabase');
+      alert('✓ Cotización guardada exitosamente en Supabase');
+      lockAndAdvanceCotNum();
+      if(confirm('¿Limpiar para crear nueva cotización?')){
+        clearAll();
+      }
     } else {
-      console.error('Error:', await response.text());
+      const errorText = await response.text();
+      console.error('Error:', errorText);
+      alert('Error al guardar: ' + errorText);
     }
   }catch(err){
     console.error('Error:',err);
+    alert('Error de conexión: ' + err.message);
   }
 }
 
